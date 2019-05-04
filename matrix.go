@@ -32,6 +32,23 @@ func Mat(v ...Vector) Matrix {
 	return mat
 }
 
+// Zeros creates a zero-filled matrix
+func Zeros(m, n int) Matrix {
+	if notPositive(m, n) {
+		panic("matrix.dimensionsMustbePositive")
+	}
+	return Matrix{el: make(Vector, m*n), stride: n, class: FloatingPoint}
+}
+
+// Ones creates a one-filled matrix
+func Ones(m, n int) Matrix {
+	mat := Zeros(m, n)
+	iterateRows(&mat, func(i, j int) {
+		mat.set(i, j, 1)
+	})
+	return mat
+}
+
 // Dims returns the dimensions of the matrix
 func (a *Matrix) Dims() (int, int) {
 	return len(a.el) / a.stride, a.stride
@@ -113,7 +130,7 @@ func (a *Matrix) toString() string {
 func panicMatrixSize(a *Matrix, i, j int) {
 	m, n := a.Dims()
 	if i > m || j > n {
-		panic("matrix.ErrOutOfBounds")
+		panic(ErrIndexOutOfRange)
 	}
 }
 
