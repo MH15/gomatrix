@@ -3,6 +3,8 @@ package matrix
 import (
 	"fmt"
 	"testing"
+
+	"github.com/MH15/gomatrix/pkg/vector"
 )
 
 // func TestPerformance(t *testing.T) {
@@ -31,16 +33,16 @@ func TestZeros(t *testing.T) {
 	el4x4 := []float64{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 	// check if correct
-	if !Equal(z1x1.el, el1x1) {
+	if !vector.Equal(z1x1.el, el1x1) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(z1x4.el, el1x4) {
+	if !vector.Equal(z1x4.el, el1x4) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(z4x1.el, el4x1) {
+	if !vector.Equal(z4x1.el, el4x1) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(z4x4.el, el4x4) {
+	if !vector.Equal(z4x4.el, el4x4) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
 
@@ -65,16 +67,16 @@ func TestOnes(t *testing.T) {
 	el4x4 := []float64{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 
 	// check if correct
-	if !Equal(o1x1.el, el1x1) {
+	if !vector.Equal(o1x1.el, el1x1) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(o1x4.el, el1x4) {
+	if !vector.Equal(o1x4.el, el1x4) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(o4x1.el, el4x1) {
+	if !vector.Equal(o4x1.el, el4x1) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
-	if !Equal(o4x4.el, el4x4) {
+	if !vector.Equal(o4x4.el, el4x4) {
 		panic("Matrix el field doesn't match float64 slice")
 	}
 
@@ -85,24 +87,24 @@ func TestOnes(t *testing.T) {
 }
 
 func TestDiagonal(t *testing.T) {
-	v := Vec(1, 2, 3)
+	v := vector.Vec(1, 2, 3)
 	d := Diagonal(v)
 
-	el := Vec(1, 0, 0, 0, 2, 0, 0, 0, 3)
+	el := vector.Vec(1, 0, 0, 0, 2, 0, 0, 0, 3)
 
-	if !Equal(d.el, el) {
+	if !vector.Equal(d.el, el) {
 		panic("Diagonal matrix not generated correctly.")
 	}
 
 }
 
 func TestTranspose(t *testing.T) {
-	m := Mat(Vec(1, 2, 3), Vec(4, 5, 6), Vec(7, 8, 9))
-	mt := Vec(1, 4, 7, 2, 5, 8, 3, 6, 9)
+	m := Mat(vector.Vec(1, 2, 3), vector.Vec(4, 5, 6), vector.Vec(7, 8, 9))
+	mt := vector.Vec(1, 4, 7, 2, 5, 8, 3, 6, 9)
 	m.transpose()
 
-	fmt.Println(m.toStringPlain())
-	if !Equal(m.el, mt) {
+	fmt.Println(m.ToStringPlain())
+	if !vector.Equal(m.el, mt) {
 		panic("Transpose of matrix does not match what it should be.")
 	}
 }

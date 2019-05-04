@@ -1,4 +1,6 @@
-package main
+package errors
+
+import "github.com/MH15/gomatrix/pkg/matrix"
 
 var (
 	ErrIndexOutOfRange     = "matrix: index out of range"
@@ -22,14 +24,14 @@ var (
 )
 
 /// PANICS
-func panicMatrixSize(a *Matrix, i, j int) {
+func panicMatrixSize(a *matrix.Matrix, i, j int) {
 	m, n := a.Dims()
 	if i > m || j > n {
 		panic(ErrIndexOutOfRange)
 	}
 }
 
-func panicMatrixDimMatch(a *Matrix, b Matrix) {
+func panicMatrixDimMatch(a *matrix.Matrix, b matrix.Matrix) {
 	ma, na := a.Dims()
 	mb, nb := b.Dims()
 

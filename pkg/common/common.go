@@ -1,5 +1,5 @@
 // create common matrices and vectors
-package main
+package common
 
 import (
 	"strconv"

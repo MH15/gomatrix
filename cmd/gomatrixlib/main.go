@@ -1,5 +1,5 @@
 // the gomatrix library
-package gomatrixlib
+package main
 
 import (
 	"fmt"

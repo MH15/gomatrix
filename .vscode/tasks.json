@@ -6,7 +6,7 @@
         {
             "label": "echo",
             "type": "shell",
-            "command": "go clean && go build github.com/MH15/gomatrix/cmd/gomatrixlib && ./gomatrix",
+            "command": "cd $GOPATH/src/github.com/MH15/gomatrix/cmd/gomatrixlib && go clean && go build && ./gomatrixlib",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -111,7 +111,7 @@ func panicMatrixDimMatch(a *Matrix, b Matrix) {
 	}
 }
 
-// Printers
+// ToStringPlain does stuff
 func (a *Matrix) ToStringPlain() string {
 	s := ""
 	r := a.rows()
@@ -122,6 +122,7 @@ func (a *Matrix) ToStringPlain() string {
 	return s
 }
 
+// ToString does stuff
 func (a *Matrix) ToString() string {
 	s := "a = [ "
 
