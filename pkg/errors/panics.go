@@ -20,3 +20,20 @@ var (
 	ErrNotPSD              = "matrix: input not positive symmetric definite"
 	ErrFailedEigen         = "matrix: eigendecomposition not successful"
 )
+
+/// PANICS
+func panicMatrixSize(a *Matrix, i, j int) {
+	m, n := a.Dims()
+	if i > m || j > n {
+		panic(ErrIndexOutOfRange)
+	}
+}
+
+func panicMatrixDimMatch(a *Matrix, b Matrix) {
+	ma, na := a.Dims()
+	mb, nb := b.Dims()
+
+	if ma != mb && na != nb {
+		panic("matrix.DimsMustMatch")
+	}
+}

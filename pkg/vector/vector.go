@@ -1,4 +1,4 @@
-package main
+package vector
 
 import "sync"
 
@@ -64,7 +64,7 @@ func Dot(a, b Vector) float64 {
 }
 
 /// OPERATIONS
-func (a Vector) add(b Vector) {
+func (a Vector) Add(b Vector) {
 	panicLength(a, b)
 	for i := 0; i < a.Len(); i++ {
 		a[i] += b[i]
@@ -88,13 +88,13 @@ func (a Vector) fastAdd(b Vector) {
 
 }
 
-func (a Vector) subtract(b Vector) {
+func (a Vector) Subtract(b Vector) {
 	panicLength(a, b)
 	for i := 0; i < a.Len(); i++ {
 		a[i] -= b[i]
 	}
 }
-func (a Vector) scalarMult(s float64) {
+func (a Vector) ScalarMult(s float64) {
 	for i := 0; i < a.Len(); i++ {
 		a[i] *= s
 	}

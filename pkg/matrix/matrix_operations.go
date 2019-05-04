@@ -1,17 +1,7 @@
-// Common matrix operations
-package main
+// Package matrix operations
+package matrix
 
-// Diagonal creates a n-by-n matrix with a Vector of n elements spread along the
-// diagonal entries of the matrix
-func Diagonal(v Vector, super ...int) Matrix {
-	mat := Zeros(len(v), len(v))
-	iterateRows(&mat, func(i, j int) {
-		if i == j {
-			mat.set(i, j, v.At(i))
-		}
-	})
-	return mat
-}
+import "github.com/MH15/gomatrix/pkg/vector"
 
 // Transpose Matrix a
 func (a *Matrix) transpose() {
@@ -26,26 +16,26 @@ func (a *Matrix) transpose() {
 
 // Add Matrix b to Matrix a
 // Dimensions of a and b must match
-func (a *Matrix) add(b Matrix) {
+func (a *Matrix) Add(b Matrix) {
 	panicMatrixDimMatch(a, b)
-	a.el.add(b.el)
+	a.el.Add(b.el)
 }
 
 // Subtract Matrix b from Matrix a
 // Dimensions of a and b must match
-func (a *Matrix) subtract(b Matrix) {
+func (a *Matrix) Subtract(b Matrix) {
 	panicMatrixDimMatch(a, b)
-	a.el.subtract(b.el)
+	a.el.Subtract(b.el)
 }
 
 // Multiply Matrix a by Matrix b
 // Inner dimensions of a and b must match
-func (a *Matrix) multiply(b Matrix) {
+func (a *Matrix) Multiply(b Matrix) {
 	m, n := a.Dims()
 	new := Zeros(m, n)
 	rows, columns := a.rows(), b.columns()
 	iterateRows(a, func(i int, j int) {
-		d := Dot(rows[i], columns[j])
+		d := vector.Dot(rows[i], columns[j])
 		new.set(i, j, d)
 	})
 	a.el = new.el
@@ -63,7 +53,7 @@ func RREF(a Matrix) Matrix {
 	swapRows(rows, 0, largest)
 	for i := 0; i < len(columns); i++ {
 		// scale the row to lead with 1
-		rows[i].scalarMult(1.0 / rows[i].At(i))
+		rows[i].ScalarMult(1.0 / rows[i].At(i))
 		// clear all other rows that are not of row i
 		for j := 0; j < len(columns[i]); j++ {
 			if j != i {
@@ -71,7 +61,7 @@ func RREF(a Matrix) Matrix {
 			}
 		}
 		// break if the last row is zero to avoid inconsistencies
-		if Equal(rows[len(rows)-1], ZeroVec(len(columns[i]))) {
+		if vector.Equal(rows[len(rows)-1], vector.ZeroVec(len(columns[i]))) {
 			break
 		}
 	}
@@ -79,17 +69,17 @@ func RREF(a Matrix) Matrix {
 }
 
 // subtract  row2 from row1 until index column of row1 is 0
-func clearRow(row1, row2 Vector, column int) {
-	cp := Vec(row2...)
+func clearRow(row1, row2 vector.Vector, column int) {
+	cp := vector.Vec(row2...)
 	row1c := row1[column]
 	// row2c := row2[column]
 	ratio := row1c
-	cp.scalarMult(ratio)
-	row1.subtract(cp)
+	cp.ScalarMult(ratio)
+	row1.Subtract(cp)
 }
 
 // swap two rows in the []Vector slice
-func swapRows(rows []Vector, i1, i2 int) {
+func swapRows(rows []vector.Vector, i1, i2 int) {
 	row1 := rows[i1]
 	row2 := rows[i2]
 
@@ -98,7 +88,7 @@ func swapRows(rows []Vector, i1, i2 int) {
 }
 
 // return the index of the row with maximum value at column position
-func maxColumn(rows []Vector, column int) int {
+func maxColumn(rows []vector.Vector, column int) int {
 	index := 0
 	max := rows[0][column]
 	for i, row := range rows {
