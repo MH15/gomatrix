@@ -33,7 +33,7 @@ func Mat(v ...vector.Vector) Matrix {
 		mat = Zeros(len(v), len(v[0]))
 		// flatten v into the matrix
 		iterateRows(&mat, func(i int, j int) {
-			mat.set(i, j, v[i].At(j))
+			mat.Set(i, j, v[i].At(j))
 		})
 	}
 	return mat
@@ -46,14 +46,14 @@ func (a *Matrix) Dims() (int, int) {
 
 // At returns the value at row i, column j.
 // Panics if i or j are out of bounds for the m by n matrix.
-func (a *Matrix) at(i, j int) float64 {
+func (a *Matrix) At(i, j int) float64 {
 	panicMatrixSize(a, i, j)
 	return a.el[i*a.stride+j]
 }
 
 // Sets the value at i, j
 // Panics if i or j are out of bounds for the m by n matrix
-func (a *Matrix) set(i, j int, val float64) {
+func (a *Matrix) Set(i, j int, val float64) {
 	panicMatrixSize(a, i, j)
 	// fmt.Printf("Setting %f at pos(%d,%d)\n", val, i, j)
 	a.el[i*a.stride+j] = val
@@ -77,7 +77,7 @@ func (a *Matrix) columns() [][]float64 {
 	for j := 0; j < n; j++ {
 		c[j] = make([]float64, m)
 		for i := 0; i < m; i++ {
-			c[j][i] = a.at(i, j)
+			c[j][i] = a.At(i, j)
 		}
 	}
 	return c

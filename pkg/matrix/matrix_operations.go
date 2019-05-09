@@ -1,14 +1,18 @@
 // Package matrix operations
 package matrix
 
-import "github.com/MH15/gomatrix/pkg/vector"
+import (
+	"math"
+
+	"github.com/MH15/gomatrix/pkg/vector"
+)
 
 // Transpose Matrix a
 func (a *Matrix) transpose() {
 	m, n := a.Dims()
 	new := Zeros(n, m)
 	iterateRows(a, func(i int, j int) {
-		new.set(j, i, a.at(i, j))
+		new.Set(j, i, a.At(i, j))
 	})
 	a.el = new.el
 	a.stride = new.stride
@@ -36,7 +40,7 @@ func (a *Matrix) Multiply(b Matrix) {
 	rows, columns := a.rows(), b.columns()
 	iterateRows(a, func(i int, j int) {
 		d := vector.Dot(rows[i], columns[j])
-		new.set(i, j, d)
+		new.Set(i, j, d)
 	})
 	a.el = new.el
 	a.stride = new.stride
@@ -65,7 +69,18 @@ func RREF(a Matrix) Matrix {
 			break
 		}
 	}
-	return Mat(rows...)
+	reduced := Mat(rows...)
+	cleanZeros(reduced)
+	return reduced
+}
+
+// get rid of negative zeros
+func cleanZeros(a Matrix) {
+	iterateRows(&a, func(i, j int) {
+		if a.At(i, j) == -0 {
+			a.Set(i, j, math.Abs(a.At(i, j)))
+		}
+	})
 }
 
 // subtract  row2 from row1 until index column of row1 is 0

@@ -15,7 +15,7 @@ func Zeros(m, n int) Matrix {
 func Ones(m, n int) Matrix {
 	mat := Zeros(m, n)
 	iterateRows(&mat, func(i, j int) {
-		mat.set(i, j, 1)
+		mat.Set(i, j, 1)
 	})
 	return mat
 }
@@ -27,7 +27,7 @@ func Identity(m, n int) Matrix {
 	mat := Zeros(m, n)
 	iterateRows(&mat, func(i, j int) {
 		if i == j {
-			mat.set(i, j, 1)
+			mat.Set(i, j, 1)
 		}
 	})
 	return mat
@@ -39,7 +39,7 @@ func Diagonal(v vector.Vector, super ...int) Matrix {
 	mat := Zeros(len(v), len(v))
 	iterateRows(&mat, func(i, j int) {
 		if i == j {
-			mat.set(i, j, v.At(i))
+			mat.Set(i, j, v.At(i))
 		}
 	})
 	return mat

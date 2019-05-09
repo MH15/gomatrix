@@ -4,27 +4,27 @@ package main
 import (
 	"fmt"
 
-	"github.com/MH15/gomatrix/pkg/matrix"
-	"github.com/MH15/gomatrix/pkg/vector"
+	mat "github.com/MH15/gomatrix/pkg/matrix"
+	vec "github.com/MH15/gomatrix/pkg/vector"
 )
 
 func main() {
 	fmt.Println("starting...")
 
-	vec1 := vector.Vec(1, 2, 3)
-	vec2 := vector.Vec(4, 5, 6)
-	vec3 := vector.Vec(7, 8, 9)
+	vec1 := vec.Vec(1, 2, 3)
+	vec2 := vec.Vec(4, 5, 6)
+	vec3 := vec.Vec(7, 8, 9)
 
-	a := matrix.Mat(vec1, vec2, vec3)
+	a := mat.Mat(vec1, vec2, vec3)
 
-	vecA := vector.Vec(3, 1, 3, 6)
-	vecB := vector.Vec(1, 2, 7, 6)
-	vecC := vector.Vec(1, 4, 5, 7)
-	vecD := vector.Vec(0, 0, 1, 2)
-	b := matrix.Mat(vecA, vecB, vecC, vecD)
+	vecA := vec.Vec(3, 1, 3, 6)
+	vecB := vec.Vec(1, 2, 7, 6)
+	vecC := vec.Vec(1, 4, 5, 7)
+	vecD := vec.Vec(0, 0, 1, 2)
+	b := mat.Mat(vecA, vecB, vecC, vecD)
 
-	ar := matrix.RREF(a)
-	br := matrix.RREF(b)
+	ar := mat.RREF(a)
+	br := mat.RREF(b)
 
 	fmt.Println(a.ToString())
 	fmt.Println(ar.ToString())
